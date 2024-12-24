@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schenkliste</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Schenkliste</h1>
+        <nav>
+            <button id="login-btn">Login</button>
+            <button id="register-btn">Registrieren</button>
+        </nav>
+    </header>
+    <main>
+        <section id="auth-section" style="display: none;">
+            <form id="auth-form">
+                <input type="text" id="first-name" placeholder="Vorname" required>
+                <input type="text" id="last-name" placeholder="Nachname" required>
+                <input type="email" id="email" placeholder="E-Mail" required>
+                <input type="password" id="password" placeholder="Passwort" required>
+                <select id="role" required>
+                    <option value="" disabled selected>Wähle deine Rolle</option>
+                    <option value="Wünscher">Wünscher</option>
+                    <option value="Schenker">Schenker</option>
+                </select>
+                <button type="submit" id="submit-auth">Registrieren</button>
+            </form>
+        </section>
+        
+        <section id="dashboard" style="display: none;">
+            <h2>Willkommen!</h2>
+            <p>Bitte registriere dich als "Wünscher" oder "Schenker".</p>
+            <button id="create-wishlist-btn" style="display: none;">Wunschliste erstellen</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Schenkliste</p>
+    </footer>
+</body>
+</html>
