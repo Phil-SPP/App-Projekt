@@ -18,19 +18,20 @@
     <main>
         <section id="auth-section" style="display: none;">
             <form id="auth-form">
-                <input type="text" id="first-name" placeholder="Vorname" required>
-                <input type="text" id="last-name" placeholder="Nachname" required>
+                <!-- Felder für Registrierung (werden bei Login ausgeblendet) -->
+                <input type="text" id="first-name" placeholder="Vorname">
+                <input type="text" id="last-name" placeholder="Nachname">
                 <input type="email" id="email" placeholder="E-Mail" required>
                 <input type="password" id="password" placeholder="Passwort" required>
-                <select id="role" required>
+                <select id="role">
                     <option value="" disabled selected>Wähle deine Rolle</option>
                     <option value="Wünscher">Wünscher</option>
                     <option value="Schenker">Schenker</option>
                 </select>
-                <button type="submit" id="submit-auth">Registrieren</button>
+                <button type="submit" id="submit-auth">Einloggen</button>
             </form>
         </section>
-        
+
         <section id="dashboard" style="display: none;">
             <h2>Willkommen!</h2>
             <p>Bitte registriere dich als "Wünscher" oder "Schenker".</p>

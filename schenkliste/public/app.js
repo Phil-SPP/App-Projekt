@@ -25,47 +25,70 @@ const registerBtn = document.getElementById('register-btn');
 const authSection = document.getElementById('auth-section');
 const authForm = document.getElementById('auth-form');
 const submitAuth = document.getElementById('submit-auth');
+const firstNameField = document.getElementById('first-name');
+const lastNameField = document.getElementById('last-name');
+const roleField = document.getElementById('role');
 
 // Authentifizierungsmodus
 let isLogin = true;
 
+// Login-Button Event
 loginBtn.addEventListener('click', () => {
     isLogin = true;
     authSection.style.display = 'block';
     submitAuth.textContent = "Einloggen";
+
+    // Zusätzliche Felder für Login ausblenden
+    firstNameField.style.display = 'none';
+    lastNameField.style.display = 'none';
+    roleField.style.display = 'none';
+
+    // Reset optionaler Felder
+    firstNameField.value = '';
+    lastNameField.value = '';
+    roleField.value = '';
 });
 
+// Registrieren-Button Event
 registerBtn.addEventListener('click', () => {
     isLogin = false;
     authSection.style.display = 'block';
     submitAuth.textContent = "Registrieren";
+
+    // Zusätzliche Felder für Registrierung anzeigen
+    firstNameField.style.display = 'block';
+    lastNameField.style.display = 'block';
+    roleField.style.display = 'block';
 });
 
+// Formular-Submit Event
 authForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Felder aus dem Formular abrufen
-    const firstName = document.getElementById('first-name').value;
-    const lastName = document.getElementById('last-name').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const role = document.getElementById('role').value;
-
-    if (!role) {
-        alert("Bitte wähle eine Rolle aus.");
-        return;
-    }
 
     if (isLogin) {
         // Benutzer einloggen
-        signInWithEmailAndPassword(auth, email, password)
-            .then(userCredential => {
-                alert("Erfolgreich eingeloggt!");
-            })
-            .catch(error => {
-                alert(error.message);
-            });
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            console.log("Erfolgreich eingeloggt:", user);
+            alert("Erfolgreich eingeloggt!");
+        } catch (error) {
+            console.error("Fehler beim Login:", error);
+            alert(error.message);
+        }
     } else {
+        const firstName = firstNameField.value;
+        const lastName = lastNameField.value;
+        const role = roleField.value;
+
+        if (!firstName || !lastName || !role) {
+            alert("Bitte alle Felder ausfüllen.");
+            return;
+        }
+
         try {
             // Benutzer registrieren
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -80,8 +103,10 @@ authForm.addEventListener('submit', async (e) => {
                 createdAt: new Date().toISOString(),
             });
 
+            console.log("Benutzer registriert und in Firestore gespeichert:", user);
             alert("Erfolgreich registriert und Profil erstellt!");
         } catch (error) {
+            console.error("Fehler bei der Registrierung:", error);
             alert(error.message);
         }
     }
